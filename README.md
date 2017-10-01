@@ -11,7 +11,7 @@ How to get started with OAuth2:
 3. Create a new client ID of type "service account" (example@exampleproject.gserviceaccount.com) and download the P12 key.
 4. Name that P12 whatever you want and change extension to .bytes (ExampleKey.bytes) and put it in Resources
 5. To access a spreadsheet (Example Database), share it with the service account email (example@exampleproject.gserviceaccount.com).
-```
+```csharp
 // Spreadsheet looks like:
 // | Enemy Name  |  Hit Points |
 // | Slime       |  10         |
