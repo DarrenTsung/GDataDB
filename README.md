@@ -1,19 +1,47 @@
 # GDataDB
 
+Forked from: https://github.com/mausch/GDataDB.
+
 GDataDB is a database-like interface to Google Spreadsheets for .Net.<br/>
 It models spreadsheets as databases, worksheets as database tables, and rows as records.
 
-[NuGet package here.](https://www.nuget.org/packages/GDataDB/)
+How to get started with OAuth2:
+1. Visit http://console.developers.google.com with your google account.
+2. Create a new project (Example Project), enable the Drive API.
+3. Create a new client ID of type "service account" (example@exampleproject.gserviceaccount.com) and download the P12 key.
+4. Name that P12 whatever you want and change extension to .bytes (ExampleKey.bytes) and put it in Resources
+5. To access a spreadsheet (Example Database), share it with the service account email (example@exampleproject.gserviceaccount.com).
+```
+// Spreadsheet looks like:
+// | Enemy Name  |  Hit Points |
+// | Slime       |  10         |
+// | Orc         |  200        |
+public class EnemyRowData {
+	// NOTE (darren): must be properties due to GDataDB code
+	// NOTE (darren): these property names must match the first row
+	// of the spread sheet (Enemy Name -> EnemyName)
+	public string EnemyName { get; set; }
+	public string HitPoints { get; set; }
+}
 
-A few articles documenting it:
+public static class DatabaseExample {
+	// Will run on application start
+	[RuntimeInitializeOnLoadMethod]
+	private static void Initialize() {
+		byte[] keyBytes = (Resources.Load("ExampleKey") as TextAsset).bytes;
+		IDatabaseClient client = new DatabaseClient("example@exampleproject.gserviceaccount.com", keyBytes);
+		IDatabase database = client.GetDatabase("Example Database");
+		ITable<EnemyRowData> enemyDataTable = database.GetTable<EnemyRowData>("Enemy Data");
+		foreach (IRow<EnemyRowData> enemyRow in enemyDataTable.FindAll()) {
+			EnemyRowData enemyData = enemyRow.Element;
+			... // do something with the data
+		}
+	}
+}
+```
 
-* http://bugsquash.blogspot.co.uk/search/label/gdatadb
-* http://ryanfarley.com/blog/archive/2010/09/24/using-google-docs-as-an-online-database.aspx
- 
-Google has changed the authentication scheme since those articles were written. Now it requires OAuth2. <br/>
-To set this up visit http://console.developers.google.com , create a new project, enable the Drive API, create a new client ID of type "service account" and download the P12 key. Use the service account email address and the P12 key [as shown in this example](https://github.com/mausch/GDataDB/blob/master/GDataDB.Tests/IntegrationTests.cs#L27-L29) .<br/>
-If you want to access any documents from your personal gmail account, share them (edit permissions) with the service account email address (the one that looks like "`987191231-asdfkasjdjfk@developer.gserviceaccount.com`") and make sure that they're in the root folder of Drive.
 
-Original idea for GDataDB borrowed from https://github.com/google/gdata-python-client/blob/master/src/gdata/spreadsheet/text_db.py
-
-[![Please donate](http://www.pledgie.com/campaigns/11248.png)](http://www.pledgie.com/campaigns/11248)
+## Changelog
+* Added Newtonsoft Unity package
+* Removed Nuget scaffolding to allow direct placement into project / submodule-ing
+* Documentation
