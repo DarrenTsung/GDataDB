@@ -13,9 +13,6 @@ namespace GDataDB.Linq.Impl {
         protected override Expression VisitMethodCall(MethodCallExpression m) {
             Visit(m.Arguments[0]);
             switch (m.Method.Name) {
-                case "Where":
-                    q.StructuredQuery = new WhereTranslator().Translate(m);
-                    break;
                 case "OrderBy":
                 case "OrderByDescending":
                     q.Order = new OrderTranslator().Translate(m);

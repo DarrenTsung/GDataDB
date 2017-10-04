@@ -19,11 +19,6 @@
         public string FreeQuery { get; set; }
 
         /// <summary>
-        /// Structured query
-        /// </summary>
-        public string StructuredQuery { get; set; }
-
-        /// <summary>
         /// Sort order
         /// </summary>
         public Order Order { get; set; }

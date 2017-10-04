@@ -52,7 +52,7 @@ namespace GDataDB.Linq.Impl {
         }
 
         public override string ToString() {
-            return ToQuery().StructuredQuery;
+            return ToQuery().FreeQuery;
         }
 
         public Query ToQuery() {

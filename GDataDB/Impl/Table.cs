@@ -87,26 +87,12 @@ namespace GDataDB.Impl {
             return Find(new Query {FreeQuery = query});
         }
 
-        public IList<IRow<T>> FindStructured(string query) {
-            return Find(new Query {StructuredQuery = query});
-        }
-
-        public IList<IRow<T>> FindStructured(string query, int start, int count) {
-            return Find(new Query {
-                StructuredQuery = query,
-                Start = start,
-                Count = count,
-            });
-        }
-
 
         public static string SerializeQuery(Query q) {
             var b = new StringBuilder();
 
             if (q.FreeQuery != null)
                 b.Append("q=" + Utils.UrlEncode(q.FreeQuery) + "&");
-            if (q.StructuredQuery != null)
-                b.Append("sq=" + Utils.UrlEncode(q.StructuredQuery) + "&");
             if (q.Start > 0)
                 b.Append("start-index=" + q.Start + "&");
             if (q.Count > 0)
