@@ -33,7 +33,7 @@ namespace GDataDB.Impl {
         }
 
         public XElement Serialize(Row<T> row) {
-            var e = new XElement(Utils.AtomNs + "entry", 
+            var e = new XElement(Utils.AtomNs + "entry",
                 new XAttribute(GdNs + "etag", row.Etag));
             e.Add(new XElement(Utils.AtomNs + "id", row.Id.AbsoluteUri));
             e.Add(SerializeFields(row.Element));
@@ -55,7 +55,7 @@ namespace GDataDB.Impl {
         }
 
         public T DeserializeElement(XElement entry) {
-            var setters = 
+            var setters =
                 entry.Elements()
                     .Where(e => e.Name.Namespace == GsxNs)
                     .Select(e => new {

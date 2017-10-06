@@ -1,11 +1,11 @@
+using GDataDB.Impl;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml.Linq;
-using GDataDB.Impl;
-using Newtonsoft.Json;
 
 namespace GDataDB {
 	public class DatabaseClient : IDatabaseClient {

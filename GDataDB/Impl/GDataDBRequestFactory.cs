@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -5,7 +6,6 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace GDataDB.Impl {
     public class GDataDBRequestFactory  {
@@ -67,17 +67,17 @@ namespace GDataDB.Impl {
                 .Replace('/', '_');
         }
 
-        private static readonly string serializedHeader = 
+        private static readonly string serializedHeader =
             JsonConvert.SerializeObject(new {
                 typ = "JWT",
                 alg = "RS256",
             });
 
-        private static readonly DateTime zeroDate = 
+        private static readonly DateTime zeroDate =
             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        private static readonly string scope = string.Join(" ", new[] { 
-            "https://www.googleapis.com/auth/drive", 
+        private static readonly string scope = string.Join(" ", new[] {
+            "https://www.googleapis.com/auth/drive",
             "https://spreadsheets.google.com/feeds",
         });
 
